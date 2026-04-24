@@ -1,0 +1,36 @@
+Banco fast food:
+use fastfood
+
+Primeira collection:
+db.produto.insertOne({ produtos: "Hambúrguer", preço: 35 })
+
+Segunda collection:
+db.pedido.insertOne({ pedidos: "Lanche", cliente: "Tom" })
+
+Inserindo na collection produto:
+db.produto.insertOne({ produtos: "Pão", preço: 12 })
+db.produto.insertOne({ produtos: "Alface", preço: 5 })
+db.produto.insertOne({ produtos: "Molho", preço: 10 })
+
+Inserindo na collection pedido:
+db.pedido.insertOne({ pedidos: "Combão", cliente: "Du" })
+db.pedido.insertOne({ pedidos: "X-Tudo", cliente: "Ana" })
+db.pedido.insertOne({ pedidos: "Viagem", cliente: "Lu" })
+
+Mostrar os dados salvos na collection produto:
+db.produto.find()
+
+Mostrar os dados salvos na collection pedido:
+db.pedido.find()
+
+Backup:
+mongodump -d fastfood -o fastfood
+
+Excluindo banco de dados:
+db.dropDatabase()
+
+Restaurando um banco de dados via backup (caminho da pasta) restore:
+mongorestore fastfood
+
+Excluindo banco de dados:
+db.dropDatabase()
