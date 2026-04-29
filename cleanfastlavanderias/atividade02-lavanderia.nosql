@@ -1,0 +1,94 @@
+Primeiro banco de dados
+use lavanderia
+
+Primeira collection:
+db.clientes.insertOne({
+  nome: "Ricardo Oliveira",
+  telefone: "11988887777",
+  recorrente: true,
+  data_cadastro: new Date()
+}),
+db.clientes.insertOne({ 
+  nome: "Thomas Santos",
+  telefone: "1197467536",
+  recorrente: true,
+  data_cadastro: new Date()
+});
+
+Inserindo um pedido:
+db.pedidos.insertOne({
+  cliente: "Ricardo Oliveira",
+  unidade: "Filial Sul",
+  status: "Pendente",
+  data_entrada: new Date("2026-04-29T09:00:00Z"),
+  servicos: [
+    { tipo: "lavagem", item: "edredom", valor: 45.00 },
+    { tipo: "passadoria", item: "camisas", quantidade: 5, valor: 25.00 }
+  ],
+  valor_total: 70.00
+}),
+db.pedidos.insertOne({
+  cliente: "Thomas Santos",
+  unidade: "Zona Norte",
+  status: "Pendente",
+  data_entrada: new Date("2026-04-29T012:00:00Z"),
+  servicos: [
+    { tipo: "lavagem", item: "jeans", valor: 35.00 },
+    { tipo: "secagem", item: "moletons", quantidade: 4, valor: 30.00 }
+  ],
+  valor_total: 65.00
+});
+
+Consulta visualizando todos os pedidos com base em um valor ou status:
+db.pedidos.find()
+
+Atualizando o status de um pedido:
+db.pedidos.updateOne(
+    { cliente: "Thomas Santos" }, {$set: {status: "Concluido" }});
+
+Atualizando vários documentos ao mesmo tempo:
+db.pedidos.updateMany(
+    { status: "Pendente" }, { $set: { status: "Concluido" }}
+);
+
+Criando uma constante para armazenar os documentos:
+db.arrays.insertOne({servicos: ["lavagem", "secagem", "passadoria"]})
+
+Exibindo três dados:
+const servicos = db.arrays.findOne()
+
+Tipos de dados:
+typeof servicos
+typeof servicos.servicos
+
+Acessar o que está guardado nas posições pela constante:
+servicos.servicos[0]
+servicos.servicos[1]
+servicos.servicos[2]
+
+Deletando um document:
+db.pedidos.deleteOne({ cliente: "Ricardo Oliveira" });
+
+Deletando vários documentos:
+db.pedidos.deleteMany({ status: "Concluido" })
+
+Criando usuário que somente lê:
+db.createUser({
+  user: "clienteThomas",
+  pwd: "senha123",
+  roles: [
+    { role: "readWrite", db: "cliente" }
+  ]
+})
+
+Listar os usuários existente no banco:
+db.getUsers()
+
+Deletando usuários existente no banco:
+db.dropUser("clienteThomas")
+
+Deletando uma collection:
+db.pedidos.drop()
+
+Excluindo o banco de dados:
+db.dropDatabase()
